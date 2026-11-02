@@ -74,6 +74,11 @@ export const configValidationSchema = Joi.object<Config>({
   REGISTRATION_EMAIL_CONFIRMATION_ENABLED: Joi.boolean()
     .optional()
     .default(false),
+  REGISTRATION_CONFIRMATION_METHOD: Joi.string()
+    .valid('otp', 'magic_link')
+    .optional()
+    .default('otp'),
+  MAGIC_LINK_BASE_URL: Joi.string().uri().optional(),
   LOGIN_EMAIL_CONFIRMATION_ENABLED: Joi.boolean().optional().default(false),
 
   /**

@@ -47,6 +47,8 @@ export interface Config {
    * Email confirmation flags
    */
   REGISTRATION_EMAIL_CONFIRMATION_ENABLED?: boolean;
+  REGISTRATION_CONFIRMATION_METHOD?: 'otp' | 'magic_link';
+  MAGIC_LINK_BASE_URL?: string;
   LOGIN_EMAIL_CONFIRMATION_ENABLED?: boolean;
 
   /**
