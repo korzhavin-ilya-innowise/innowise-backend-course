@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { HealthCheckService, TypeOrmHealthIndicator } from '@nestjs/terminus';
+
 import { HealthService } from './health.service';
 
 describe('HealthService', () => {
@@ -6,13 +8,17 @@ describe('HealthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [HealthService],
+      providers: [
+        HealthService,
+        { provide: HealthCheckService, useValue: { check: jest.fn() } },
+        { provide: TypeOrmHealthIndicator, useValue: { pingCheck: jest.fn() } },
+      ],
     }).compile();
 
-    service = module.get<HealthService>(HealthService);
+    service = module.get(HealthService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should return empty ok response', () => {
+    expect(service.getEmptyResponse()).toEqual({ status: 'ok', details: {} });
   });
 });
